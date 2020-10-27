@@ -83,7 +83,7 @@ LongPoll = LongPolling(Seccion)
 
 ##### Следующие действия просты, необходимо использовать метод listen в цикле, для активации LongPoll
 ```python /* или python3 */
-for payment in VKPointPool(VKPointSession).listen(sleep = 5):
+for payment in LongPoll().listen(sleep=5):
 
     user_id = payment['from']
     amount = payment['amount']
@@ -95,4 +95,5 @@ for payment in VKPointPool(VKPointSession).listen(sleep = 5):
 
 * [Разработчик](http://vk.com/duzive)
 * [Исходный код](worldcoin_wrapper/worldcoin.py)
-* [Официальная документация](https://worldcoin.docs.apiary.io/#/reference/история-переводов)
+* [Официальная документация](https://worldcoin.docs.apiary.io/)
+* Библиотека обладает подсказками, лучше использвать IDE

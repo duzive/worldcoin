@@ -24,6 +24,13 @@ class WorldCoin(object):
         return response
 
     def get_payment_link(self, amount=100, code=random.randint(1, 12345678), lock=0):
+        """
+
+        :param amount: сумма
+        :param code: код, вернется вам в истории переводов
+        :param lock: возможность менять сумму
+        :return: Ссылка для получения перевода
+        """
         link = f'vk.com/app7614516#pay_{self.__group_id}_{amount}_{code}_{lock}'
         return link
 
@@ -36,6 +43,12 @@ class WorldCoin(object):
         return self._send_request(params)['coins']
 
     def get_history_transactions(self, count=10, filter=1):
+        """
+
+        :param count: кол-во транзакций
+        :param filter: тип транзакций
+        :return: массив транзакций
+                """
         params = {
             "action": "history",
             "group_id": self.__group_id,
@@ -46,6 +59,13 @@ class WorldCoin(object):
         return self._send_request(params)['history']
 
     def send_transfer(self, to_id, amount, code=random.randint(1, 12345678)):
+        """
+
+        :param to_id: Получатель
+        :param amount: Сумма
+        :param code: Код, вернется в транзакии
+        :return: Результат выполнения
+        """
         params = {
             "action": "transaction",
             "group_id": self.__group_id,
@@ -57,6 +77,11 @@ class WorldCoin(object):
         return self._send_request(params)
 
     def get_users_info(self, *args):
+        """
+
+        :param args: список игроков через запятую
+        :return: Массив словарей
+        """
         if len(args) > 100:
             raise ValueError('Массив players не может принимать более 100 игроков за запрос!')
         params = {
@@ -68,6 +93,11 @@ class WorldCoin(object):
         return self._send_request(params)['players']
 
     def custom_request(self, base_params=True, **kwargs):
+        """
+
+        :param base_params: Передача стандартных параметров, bool
+        :param kwargs: дополнительные параметры
+        """
         if base_params:
             base_params_ = {
                 "group_id": self.__group_id,
@@ -81,10 +111,19 @@ class LongPolling(object):
     __slots__ = ('__api', '__last_transactions')
 
     def __init__(self, api_object):
+        """
+
+        :param api_object: ваш объект WorldCoin
+        """
         self.__api = api_object
         self.__last_transactions = self.__api.get_history_transactions()
 
     def listen(self, sleep=3):
+        """
+
+        :param sleep: Время "засыпания"
+        :return: Итератор
+        """
         while True:
             history = self.__api.get_history_transactions()
             if history[0] != self.__last_transactions:
