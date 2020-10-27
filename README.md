@@ -4,7 +4,7 @@ WorldCoin 1.0.0
 
 #### Установка модуля
 ```bash
-python -m pip install worldcoin
+python -m pip install worldcoin_wrapper
 ```
 
 Работа с модулем
@@ -94,5 +94,5 @@ for payment in VKPointPool(VKPointSession).listen(sleep = 5):
 ### Дополнительно
 
 * [Разработчик](http://vk.com/duzive)
-* [Исходный код](./worldcoin/worldcoin.py)
+* [Исходный код](worldcoin_wrapper/worldcoin.py)
 * [Официальная документация](https://worldcoin.docs.apiary.io/#/reference/история-переводов)
